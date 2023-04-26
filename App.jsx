@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
+  Alert,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -10,13 +11,29 @@ import {
 } from 'react-native';
 import Header from './src/components/Header';
 import NuevoPresupuesto from './src/components/NuevoPresupuesto';
+import ControlPresupuesto from './src/components/ControlPresupuesto';
 
 function App() {
+  const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
+
+  const handleNuevoPresupuesto = presupuesto => {
+    if (Number(presupuesto > 0)) {
+      setIsValidPresupuesto(true);
+    } else {
+      Alert.alert('Error', 'El presupuesto no puede ser 0 o menor');
+    }
+  };
+
   return (
     <View style={styles.contenedor}>
       <View style={styles.header}>
         <Header />
-        <NuevoPresupuesto />
+        {isValidPresupuesto ? (
+          <ControlPresupuesto />
+        ) : (
+          <NuevoPresupuesto 
+          handleNuevoPresupuesto={handleNuevoPresupuesto} />
+        )}
       </View>
     </View>
   );
