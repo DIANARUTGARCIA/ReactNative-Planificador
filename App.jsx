@@ -101,6 +101,7 @@ function App() {
         gastoState.id === gasto.id ? gasto : gastoState,
       );
       setGastos(gastosActualizados);
+      setGasto({})
     } else {
       gasto.id = generarId();
       gasto.fecha = Date.now();
