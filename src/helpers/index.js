@@ -11,12 +11,15 @@ export const generarId = () => {
   return random + fecha;
 };
 
+
+
 export const formatearFecha = fecha => {
-  const fechaNueva = new Date(fecha);
+  const nuevaFecha = new Date(fecha);
   const opciones = {
     year: 'numeric',
-    month: 'short',
-    day: '2-digit',
+    month: 'long',
+    day: 'numeric',
   };
-  return fechaNueva.toLocaleDateString('es-ES', opciones);
+
+  return nuevaFecha.toLocaleDateString('es-ES', opciones);
 };

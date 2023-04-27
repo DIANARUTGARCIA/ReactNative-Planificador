@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image, Pressable} from 'react-native';
 import globalStyles from '../styles';
 import {formatearCantidad, formatearFecha} from '../helpers';
 
@@ -13,9 +13,18 @@ const diccionarioIconos = {
   suscripciones: require('../img/icono_suscripciones.png'),
 };
 
-const Gasto = ({gasto}) => {
+const Gasto = ({gasto,setModal,setGasto}) => {
   const {nombre, categoria, cantidad, fecha} = gasto;
+  
+  const handleAcciones = () =>{
+    setModal(true)
+    setGasto(gasto)
+  }
+
   return (
+    <Pressable
+    onLongPress={handleAcciones}
+    >
     <View style={styles.contenedor}>
       <View style={styles.contenido}>
         <View style={styles.contenedorImagen}>
@@ -29,6 +38,7 @@ const Gasto = ({gasto}) => {
         <Text style={styles.cantidad}>{formatearCantidad(cantidad)} </Text>
       </View>
     </View>
+    </Pressable>
   );
 };
 const styles = StyleSheet.create({
