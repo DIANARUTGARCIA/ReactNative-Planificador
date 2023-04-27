@@ -13,31 +13,32 @@ const diccionarioIconos = {
   suscripciones: require('../img/icono_suscripciones.png'),
 };
 
-const Gasto = ({gasto,setModal,setGasto}) => {
+const Gasto = ({gasto, setModal, setGasto}) => {
   const {nombre, categoria, cantidad, fecha} = gasto;
-  
-  const handleAcciones = () =>{
-    setModal(true)
-    setGasto(gasto)
-  }
+
+  const handleAcciones = () => {
+    setModal(true);
+    setGasto(gasto);
+  };
 
   return (
-    <Pressable
-    onLongPress={handleAcciones}
-    >
-    <View style={styles.contenedor}>
-      <View style={styles.contenido}>
-        <View style={styles.contenedorImagen}>
-          <Image style={styles.imagen} source={diccionarioIconos[categoria]} />
-          <View style={styles.contenedorTexto}>
-            <Text style={styles.categoria}>{categoria}</Text>
-            <Text style={styles.nombre}>{nombre} </Text>
-            <Text style={styles.fecha}>{formatearFecha(fecha)}</Text>
+    <Pressable onLongPress={handleAcciones}>
+      <View style={styles.contenedor}>
+        <View style={styles.contenido}>
+          <View style={styles.contenedorImagen}>
+            <Image
+              style={styles.imagen}
+              source={diccionarioIconos[categoria]}
+            />
+            <View style={styles.contenedorTexto}>
+              <Text style={styles.categoria}>{categoria}</Text>
+              <Text style={styles.nombre}>{nombre} </Text>
+              <Text style={styles.fecha}>{formatearFecha(fecha)}</Text>
+            </View>
           </View>
+          <Text style={styles.cantidad}>{formatearCantidad(cantidad)} </Text>
         </View>
-        <Text style={styles.cantidad}>{formatearCantidad(cantidad)} </Text>
       </View>
-    </View>
     </Pressable>
   );
 };
@@ -80,11 +81,12 @@ const styles = StyleSheet.create({
   cantidad: {
     fontSize: 20,
     fontWeight: '700',
+    color: '#7E7C7C',
   },
-  fecha:{
-    fontWeight:'700',
-    color:'#DB2777',
-  }
+  fecha: {
+    fontWeight: '700',
+    color: '#DB2777',
+  },
 });
 
 export default Gasto;

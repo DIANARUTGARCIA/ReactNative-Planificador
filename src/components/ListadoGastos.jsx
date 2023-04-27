@@ -12,7 +12,7 @@ const ListadoGastos = ({
 }) => {
   return (
     <View style={styles.contenedor}>
-      <Text style={styles.titulo}>GASTOS</Text>
+      <Text style={styles.titulo}>Gastos</Text>
 
       {filtro
         ? gastosFiltrados.map(gasto => (
@@ -32,10 +32,9 @@ const ListadoGastos = ({
             />
           ))}
 
-      {gastos.length === 0 ||
-        (gastosFiltrados.length === 0 && !!filtro && (
-          <Text style={styles.noGastos}>No hay Gastos</Text>
-        ))}
+      {(gastos.length === 0 || (gastosFiltrados.length === 0 && !!filtro)) && (
+        <Text style={styles.noGastos}>No Hay Gastos</Text>
+      )}
     </View>
   );
 };
@@ -55,6 +54,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     textAlign: 'center',
     fontSize: 20,
+    color: '#A0A0A0',
   },
 });
 

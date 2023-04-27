@@ -26,7 +26,7 @@ const FormularioGasto = ({
 
   useEffect(() => {
     //Verificar si hay gastos
-    if (gasto?.nombre) {
+    if (gasto?.id) {
       setNombre(gasto.nombre);
       setCantidad(gasto.cantidad);
       setCategoria(gasto.categoria);
@@ -57,8 +57,6 @@ const FormularioGasto = ({
         </Pressable>
 
         )}
-
-        
 
       </View>
 
