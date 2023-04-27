@@ -4,10 +4,12 @@ import {Image, Text, View, StyleSheet} from 'react-native';
 //Styles
 import globalStyles from '../styles';
 import {formatearCantidad} from '../helpers';
+import CircularProgress from 'react-native-circular-progress-indicator';
 
 const ControlPresupuesto = ({presupuesto, gastos}) => {
   const [disponible, setDisponible] = useState(0);
   const [gastado, setGastado] = useState(0);
+  const [porcentaje, setPorcentaje] = useState(0);
 
   useEffect(() => {
     const totalGastado = gastos.reduce(
@@ -16,6 +18,13 @@ const ControlPresupuesto = ({presupuesto, gastos}) => {
     );
     const totalDisponible = presupuesto - totalGastado;
 
+    const nuevoPorcentaje =
+      ((presupuesto - totalDisponible) / presupuesto) * 100;
+
+    setTimeout(() => {
+      setPorcentaje(nuevoPorcentaje);
+    }, 2000);
+
     setGastado(totalGastado);
     setDisponible(totalDisponible);
   }, [gastos]);
@@ -23,7 +32,19 @@ const ControlPresupuesto = ({presupuesto, gastos}) => {
   return (
     <View style={styles.contenedor}>
       <View style={styles.centrarGrafica}>
-        <Image style={styles.imagen} source={require('../img/grafico.jpg')} />
+        <CircularProgress
+          value={porcentaje}
+          radius={150}
+          duration={1000}
+          valuePrefix={'%'}
+          title="Gastado"
+          inActiveStrokeColor="#F5F5F5"
+          inActiveStrokeWidth={20}
+          activeStrokeColor="#3b82f6"
+          activeStrokeWidth={20}
+          titleColor="#64748B"
+          titleStyle={{fontWeight: 'bold', fontSize: 20}}
+        />
       </View>
 
       <View style={styles.contenedorTexto}>
