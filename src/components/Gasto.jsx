@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   categoria: {
-    color: '#',
+    color: '#2F8CF2',
     fontSize: 16,
     fontWeight: '700',
     textTransform: 'uppercase',

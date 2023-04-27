@@ -17,6 +17,7 @@ import NuevoPresupuesto from './src/components/NuevoPresupuesto';
 import ControlPresupuesto from './src/components/ControlPresupuesto';
 import FormularioGasto from './src/components/FormularioGasto';
 import ListadoGastos from './src/components/ListadoGastos';
+import Filtro from './src/components/Filtro';
 
 import {generarId} from './src/helpers';
 function App() {
@@ -25,6 +26,8 @@ function App() {
   const [modal, setModal] = useState(false);
   const [gastos, setGastos] = useState([]);
   const [gasto, setGasto] = useState({});
+  const [filtro, setFiltro] = useState('');
+  const [gastosFiltrados, setGastosFiltrados] = useState([]);
 
   const handleNuevoPresupuesto = presupuesto => {
     if (Number(presupuesto > 0)) {
@@ -89,11 +92,22 @@ function App() {
         </View>
 
         {isValidPresupuesto && (
-          <ListadoGastos
-            gastos={gastos}
-            setModal={setModal}
-            setGasto={setGasto}
-          />
+          <>
+            <Filtro
+              setFiltro={setFiltro}
+              filtro={filtro}
+              gastos={gastos}
+              setGastosFiltrados={setGastosFiltrados}
+            />
+
+            <ListadoGastos
+              gastos={gastos}
+              setModal={setModal}
+              setGasto={setGasto}
+              filtro={filtro}
+              gastosFiltrados={gastosFiltrados}
+            />
+          </>
         )}
       </ScrollView>
 
@@ -137,13 +151,14 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#3B82F6',
+    minHeight: 450,
   },
   btnModalImagen: {
     position: 'absolute',
     top: 680,
     right: 20,
-    width:60,
-    height:60,
+    width: 60,
+    height: 60,
   },
   imagen: {
     width: 60,
