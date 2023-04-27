@@ -11,42 +11,57 @@ import {Picker} from '@react-native-picker/picker';
 //Styles
 import globalStyles from '../styles';
 
-const FormularioGasto = ({setModal, handleGasto, setGasto,gasto}) => {
+const FormularioGasto = ({
+  setModal,
+  handleGasto,
+  setGasto,
+  gasto,
+  eliminarGasto,
+}) => {
   const [nombre, setNombre] = useState('');
   const [cantidad, setCantidad] = useState('');
   const [categoria, setCategoria] = useState('');
-  const [id, setId] = useState('')
-  const [fecha, setfecha] = useState('')
+  const [id, setId] = useState('');
+  const [fecha, setfecha] = useState('');
 
-
-  useEffect(()=>{
+  useEffect(() => {
     //Verificar si hay gastos
-    if(gasto?.nombre){
-      setNombre(gasto.nombre)
-      setCantidad(gasto.cantidad)
-      setCategoria(gasto.categoria)
-      setId(gasto.id)
-      setfecha(gasto.fecha)
+    if (gasto?.nombre) {
+      setNombre(gasto.nombre);
+      setCantidad(gasto.cantidad);
+      setCategoria(gasto.categoria);
+      setId(gasto.id);
+      setfecha(gasto.fecha);
     }
-
-  },[gasto  ])
+  }, [gasto]);
 
   return (
     <SafeAreaView style={styles.contenedor}>
-      <View>
+      <View style={styles.contenedorBotones}>
         <Pressable
-          style={styles.btnCancelar}
+          style={[styles.btn,styles.btnCancelar]}
           onLongPress={() => {
             setModal(false);
             setGasto({});
           }}
         >
-          <Text style={styles.btnCancelarTexto}>Cancelar</Text>
+          <Text style={styles.btnTexto}>Cancelar</Text>
         </Pressable>
+
+        <Pressable
+          style={[styles.btn,styles.btnEliminar]}
+          onLongPress={()=>eliminarGasto(id)}
+        >
+          <Text style={styles.btnTexto}>Eliminar</Text>
+        </Pressable>
+
       </View>
 
       <View style={styles.formulario}>
-        <Text style={styles.titulo}> {gasto?.nombre ? 'Editar Gasto' :'Nuevo Gasto' }</Text>
+        <Text style={styles.titulo}>
+          {' '}
+          {gasto?.nombre ? 'Editar Gasto' : 'Nuevo Gasto'}
+        </Text>
 
         <View style={styles.campo}>
           <Text style={styles.label}>Nombre Gasto</Text>
@@ -100,7 +115,9 @@ const FormularioGasto = ({setModal, handleGasto, setGasto,gasto}) => {
             })
           }
         >
-          <Text style={styles.submitBtnTexto}>{gasto?.nombre ? 'Guardar Cambios Gasto' : 'Agregar Gasto'}</Text>
+          <Text style={styles.submitBtnTexto}>
+            {gasto?.nombre ? 'Guardar Cambios Gasto' : 'Agregar Gasto'}
+          </Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -149,17 +166,27 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 20,
   },
+  btn:{
+     padding: 10,
+    marginTop: 30,
+    marginHorizontal: 10,
+    flex:1,
+  },
+  btnEliminar:{
+    backgroundColor: '#F22FA4',
+  },
   btnCancelar: {
     backgroundColor: '#F22FA4',
-    padding: 10,
-    marginTop: 30,
-    marginHorizontal: 15,
   },
-  btnCancelarTexto: {
+  btnTexto: {
     textTransform: 'uppercase',
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
+  },
+  contenedorBotones:{
+    flexDirection:'row',
+    justifyContent:'space-between',
   },
 });
 
