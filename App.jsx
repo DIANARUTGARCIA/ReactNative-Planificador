@@ -69,10 +69,12 @@ function App() {
           onRequestClose={() => {
             setModal(!modal);
           }}
+          
         >
           <FormularioGasto setModal={setModal} handleGasto={handleGasto} />
         </Modal>
       )}
+
 
       {isValidPresupuesto && (
         <Pressable
