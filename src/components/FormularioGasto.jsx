@@ -91,8 +91,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#2F8CF2',
     flex: 1,
   },
-  formulario: {},
-  ...globalStyles.contenedor,
+  formulario: {
+     ...globalStyles.contenedor,
+     marginHorizontal:15,
+  },
+ 
   titulo: {
     fontSize: 28,
     textAlign: 'center',
@@ -113,6 +116,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
+    color:'#000',
   },
   submitBtnTexto: {
     textAlign: 'center',
@@ -126,15 +130,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   btnCancelar: {
-    backgroundColor: '#',
+    backgroundColor: '#F22FA4',
     padding: 10,
     marginTop: 30,
-    marginHorizontal: 10,
+    marginHorizontal: 15,
   },
   btnCancelarTexto: {
     textTransform: 'uppercase',
     fontWeight: 'bold',
     color: '#fff',
+    textAlign:'center'
   },
 });
 

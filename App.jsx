@@ -16,16 +16,14 @@ import Header from './src/components/Header';
 import NuevoPresupuesto from './src/components/NuevoPresupuesto';
 import ControlPresupuesto from './src/components/ControlPresupuesto';
 import FormularioGasto from './src/components/FormularioGasto';
+import ListadoGastos from './src/components/ListadoGastos';
 
+import {generarId} from './src/helpers';
 function App() {
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   const [presupuesto, setPresupuesto] = useState(0);
   const [modal, setModal] = useState(false);
-  const [gastos, setGastos] = useState([
-    {id: 1, cantidad: 30},
-    {id: 2, cantidad: 40},
-    {id: 3, cantidad: 60},
-  ]);
+  const [gastos, setGastos] = useState([]);
 
   const handleNuevoPresupuesto = presupuesto => {
     if (Number(presupuesto > 0)) {
@@ -40,22 +38,30 @@ function App() {
       Alert.alert('Error', 'Todos los campos son obligatorios');
       return;
     }
+    gasto.id = generarId();
+    setGastos([...gastos, gasto]);
+    setModal(!modal);
   };
 
   return (
     <View style={styles.contenedor}>
-      <View style={styles.header}>
-        <Header />
-        {isValidPresupuesto ? (
-          <ControlPresupuesto presupuesto={presupuesto} gastos={gastos} />
-        ) : (
-          <NuevoPresupuesto
-            setPresupuesto={setPresupuesto}
-            presupuesto={presupuesto}
-            handleNuevoPresupuesto={handleNuevoPresupuesto}
-          />
-        )}
-      </View>
+      <ScrollView>
+        <View style={styles.header}>
+          <Header />
+          {isValidPresupuesto ? (
+            <ControlPresupuesto presupuesto={presupuesto} gastos={gastos} />
+          ) : (
+            <NuevoPresupuesto
+              setPresupuesto={setPresupuesto}
+              presupuesto={presupuesto}
+              handleNuevoPresupuesto={handleNuevoPresupuesto}
+            />
+          )}
+        </View>
+
+        {isValidPresupuesto && <ListadoGastos gastos={gastos} />}
+      </ScrollView>
+
       {modal && (
         <Modal
           animationType="slide"
@@ -67,6 +73,7 @@ function App() {
           <FormularioGasto setModal={setModal} handleGasto={handleGasto} />
         </Modal>
       )}
+
       {isValidPresupuesto && (
         <Pressable
           style={styles.btnModalImagen}
